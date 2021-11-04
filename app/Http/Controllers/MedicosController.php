@@ -17,7 +17,11 @@ class MedicosController extends Controller
     {
         $medicos = Medico::all();
 
-        return response()->json($medicos,200);
+        $array['medicos'] = $medicos;
+
+        return $array;
+
+        //return response()->json($medicos,200);
     }
 
     /**

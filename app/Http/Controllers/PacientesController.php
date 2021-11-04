@@ -17,7 +17,11 @@ class PacientesController extends Controller
     {
         $paciente = Paciente::all();
 
-        return response()->json($paciente,200);
+       
+
+        $array['paciente'] = $paciente;
+
+        return $array;
     }
 
     /**
@@ -45,7 +49,7 @@ class PacientesController extends Controller
         $cep = $request->input('cep');
         $endereco = $request->input('endereco');
         $numero = $request->input('numero');
-        $nome_responsavel = $request->input('nome_responsavel');
+        $nome_responsavel = $request->input('nomeResponsavel');
         $idade = $request->input('idade');
 
         $newPaciente = new Paciente();
@@ -56,10 +60,13 @@ class PacientesController extends Controller
         $newPaciente->cep = $cep;
         $newPaciente->endereco = $endereco;
         $newPaciente->numero = $numero;
+        $newPaciente->idade = $idade;
 
         if($idade < 18){
             $newPaciente->flag_menor = true;
             $newPaciente->nome_responsavel = $nome_responsavel;         
+        }else{
+            $newPaciente->nome_responsavel = 'Nao se aplica';
         }
 
         $newPaciente->save();
